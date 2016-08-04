@@ -10,7 +10,7 @@
           <i class="glyphicon glyphicon-user"></i>
 			{{username}}
         </a>
-        <div v-if="islogin&&$route.path =='/home'" class="userMsg" id="usersMsg">
+        <div v-if="islogin&&$route.path =='/Home'" class="userMsg" id="usersMsg">
         	登录成功！请点击这里管理留言 <a href="javascript:;" @click="stopMsg">X</a>
         </div>
         <ul class="nav nav-pills pull-left" @click='tab'>
