@@ -24,7 +24,7 @@
 
 
 			<div class="form-group ">
-					<button class="btn btn-primary pull-right" @click= "createUser" v-if="!($validation1.password.password||$validation1.username.username)">新建该账号</button>
+					<button class="btn btn-primary pull-right" @click= "createUser">新建该账号</button>
 			</div>
 						</validator>
 		</div>
