@@ -17,7 +17,7 @@
         	<ul class="pagination">
         		<li @click="pageSwitch(true,false)" id="pagePre" class="disabled"><a href="javascript:;">&laquo;</a></li>
         	</ul>
-        	<ul class="pagination" id="pageUl" @click="tab" onclick="this.tab">
+        	<ul class="pagination" id="pageUl" @click="tab">
         		<li  v-for="item in getTopics" class="{{$index}}"><a href="javascript:;" @click="getpage($index)">{{ item.pagNum }}</a></li>
         </ul>
         <ul class="pagination">
@@ -34,20 +34,17 @@
 	}
 	@keyframes animate{
 		0%{
-
 			opacity:0;
 		}
 		100%{
-
-			opacity: 1;	
+      opacity: 1;
 		}
 	}
 </style>
 <script>
 export default {
 	ready(){
-
-		this.$http.post('http://192.168.131.45:3000/gettopics',{
+		this.$http.post('gettopics',{
 			author:'',
 			offset:'',
 			count:'30'
@@ -97,7 +94,7 @@ export default {
 			gettopic(num){
 				let IDarr = JSON.parse(sessionStorage.IDrray)
 				if(IDarr[num]){
-				this.$http.post('http://192.168.131.45:3000/gettopic',{
+				this.$http.post('gettopic',{
 						_id:IDarr[num]
 					}).then((res)=>{
 						if(res.data.success){
@@ -126,7 +123,7 @@ export default {
 				}else{
 					pagePre.classList.remove('disabled')
 					tabs[num].classList.remove('active')
-					
+
 					num--
 					tabs[num].classList.add('active')
 					this.essayArr.length=0;
@@ -139,14 +136,14 @@ export default {
 				}
 			}else if(next){
 				pagePre.classList.remove('disabled')
-				
+
 				let MaxNum=Math.floor(sessionStorage.IDLength/3)
 				if(tabs[MaxNum-1].classList[1] =='active'){
 				pageNext.classList.add('disabled')
 				}else{
 					pageNext.classList.remove('disabled')
 					tabs[num].classList.remove('active')
-					
+
 					num++
 					tabs[num].classList.add('active')
 					this.essayArr.length=0;

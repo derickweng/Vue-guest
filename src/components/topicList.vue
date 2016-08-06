@@ -26,13 +26,13 @@
 	.item-move{
 		width:200px;
 		transition:width 5s ease-in-out;
-		
+
 	}
 </style>
 <script>
 	export default {
 		ready(){
-			this.$http.post('http://192.168.131.45:3000/gettopics',{author:sessionStorage.lastname}).then((res)=>{
+			this.$http.post('gettopics',{author:sessionStorage.lastname}).then((res)=>{
 				if(res.data.success&&res.data.data.list.length>0){
 						for(let i =0;i<res.data.data.list.length;i++){
 							this.topicList.push({
@@ -61,27 +61,24 @@
 		},
 		methods:{
 			deleteTop(e){
-				
 				if(window.confirm("确定要删除该留言吗？")){
-					this.$http.post('http://192.168.131.45:3000/deletetopic',{
+					this.$http.post('deletetopic',{
 						_id:this.topicList[e.target.classList].essayId
 					}).then((res)=>{
 						topList.classList.remove("panel-default")
 							topList.classList.add("panel-success")
 							this.userTopic="删除成功"
-							location.reload()
+              this.$route.router.go("/Home")
 					},(res)=>{
 						alert("删除失败！")
-							console.log(error)
 					})
 				}
-				
+
 			},
 			_idSave(e){
 				sessionStorage.lastId = this.topicList[e.target.classList].essayId
 				this.$route.router.go("/modify")
 			}
 		}
-
 	}
 </script>

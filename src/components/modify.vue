@@ -4,7 +4,7 @@
 			<form class="panel-body">
 				<div class="form-group">
 					<label for="newTitle">标题</label>
-					<input type="text" placeholder="请输入标题" id="modiTitle" class="form-control"/>
+					<input type="text" placeholder="请输入标题" id="modiTitle" class="form-control" v-model="modiValue.modiTitle"/>
 				</div>
 				<div  class="form-group">
 					<label for="newContent">内容</label>
@@ -18,12 +18,13 @@
 	textarea {
 		resize:none;
 	}
-	
+
 </style>
 <script type="text/javascript">
+
 	export default {
 		ready(){
-			this.$http.post('http://192.168.131.45:3000/gettopic',{
+			this.$http.post('gettopic',{
 				_id:sessionStorage.lastId
 			}).then((res)=>{
 				document.querySelector("#modiTitle").value=res.data.data.title
@@ -34,11 +35,12 @@
 				addPanel.classList.add("panel-danger")
 				this.panHead='通信错误！添加失败'
 			})
-		},		
+		},
 		data(){
 			return {
 				addTopList:{},
-				panHead: '修改话题'
+				panHead: '修改话题',
+        modiValue:{}
 			}
 		},
 		methods: {
@@ -49,17 +51,17 @@
 					content:document.querySelector("#modiContent").value
 				}).then((res)=>{
 					if(res.data.success){
-						
+
 							addPanel.classList.remove("panel-default")
 							addPanel.classList.remove("panel-danger")
 							addPanel.classList.add("panel-success")
-							
+
 							clearInterval(timer)
 							var timer = setInterval(()=>{
 								this.panHead=`${res.data.message}跳转中...`
 								this.$route.router.go("/home")
 								location.reload()
-							},1000)	
+							},1000)
 						}else {
 							addPanel.classList.remove("panel-default")
 							addPanel.classList.remove("panel-success")
@@ -74,6 +76,6 @@
 				})
 			}
 		}
-		
+
 	}
 </script>

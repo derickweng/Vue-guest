@@ -20,6 +20,7 @@
 	}
 </style>
 <script type="text/javascript">
+  import {toggleClass} from '.././libs/unit'
 	export default {
 		data(){
 			return {
@@ -30,7 +31,7 @@
 		methods: {
 			addTopic(){
 				let self = this
-				this.$http.post('http://192.168.131.45:3000/addtopic',{
+				this.$http.post('addtopic',{
 					title:self.addTopList.newTitle,
 					content:self.addTopList.newContent
 				}).then((res)=>{
@@ -58,6 +59,6 @@
 				})
 			}
 		}
-		
+
 	}
 </script>
